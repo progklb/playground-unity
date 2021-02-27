@@ -6,7 +6,7 @@ This repository contains various projects and is used as a sandbox for experimen
 
 ## Sub-projects
 
-The following folder hierarchy convention is to be used for subprojects within this repo:
+The following folder hierarchy convention is to be used for sub-projects within this repo:
 
 ```txt
 +-- Assets
@@ -15,6 +15,18 @@ The following folder hierarchy convention is to be used for subprojects within t
 ```
 
 where each sub-project is ideally a mostly-self-contained project that can make use of any Common or submodule assets.
+
+A branching strategy is used for each sub-project. Branches should never be deleted once merged. This allows the Unity project version to be upgraded as necessary, while maintaining an easily accessible history of sub-projects, should these projects stop working in newer versions of Unity.
+
+```txt
+- main                   // Main branch
+- develop                // Integration branch for all sub-projects.
+- project/project-name   // Contains commits specific to each sub-project.
+```
+
+### Common
+
+Contains common assets for use within other sub-projects.
 
 ### URP Template
 
