@@ -1,9 +1,6 @@
 # Lighting
 
 ![Image](HEADER.png)
-Reference
-
-- [Brackeys: LIGHTING in Unity](https://youtu.be/VnG2gOKV9dw)
 
 ## Notes
 
@@ -22,6 +19,8 @@ Terms
 ### Baked Lighting
 
 ![Image](./Documentation/Capture_4.png)
+
+Reference: [Brackeys: LIGHTING in Unity](https://youtu.be/VnG2gOKV9dw)
 
 #### Baked Lighting Notes
 
