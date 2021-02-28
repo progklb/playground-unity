@@ -11,6 +11,7 @@ The following folder hierarchy convention is to be used for sub-projects within 
 ```txt
 +-- Assets
 |   +-- Common
+|   +-- Submodules
 |   +-- [ProjectName]
 ```
 
@@ -24,7 +25,7 @@ A branching strategy is used for each sub-project. Branches should never be dele
 - project/project-name   // Contains commits specific to each sub-project.
 ```
 
-### Common
+### Common / Submodules
 
 Contains common assets for use within other sub-projects.
 
