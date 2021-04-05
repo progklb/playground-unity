@@ -21,6 +21,7 @@ Terms
 - **Baking**: Generates textures to represent light bounces, elimating the need for realtime-calculations. Generally best for static objects.
 - **Progressive lightmapper**: Path-tracing-based lightmapper for baking. Can see results as it renders in editor, and can make realtime changes.
 - **Two-point lighting**: When two sources of lighting are used; typically a `main light`, and a less-intense `rim light`.
+- **Volumetric lighting**: Simulates light being scattered in the atmosphere due to particles, creating a 3D voluminous effect (e.g. dust/mist/smoke in the air)
 
 ![Image](./Documentation/LightingExamples.png)
 
@@ -78,7 +79,7 @@ If we see banding, adjust the lightmap `Compression`.
 
 - **Color Space** - determines the math used in lighting calculations / reading values from textures.
 
-  - **Linear space** - colours supplied to shaders will brighten linearly as light intensity increases.
+  - **Linear space** - colours supplied to shaders will brighten linearly as light intensity increases. Typically provides more realistic results.
   - **Gamma space** - typically results in brighters colours blowing out to white, leading to a washed out look.
 
 ![Image](Documentation/Graphics-ColorSpace.png)
@@ -94,7 +95,8 @@ If we see banding, adjust the lightmap `Compression`.
 
 - **Tone mapping** - determines how HDR colour data maps to the screen's colour range. *(Note that if Filmic is applied it may be necessary to increase ambient lighting intensity etc. to achieve reasonable lighting)*
 
-![Image](Documentation/Graphics-HDR.png)
+|![Image](Documentation/Graphics-HDR.png)|![Image](Documentation/Graphics-HDR-2.png)|
+|-|-|
 
 - **PBR (Physically Based Rendering)** - rendering techniques that mimic real-world lighting behaviours.
 
