@@ -8,6 +8,12 @@ Reference
 - [Brackeys: REALTIME LIGHTING in Unity](https://www.youtube.com/watch?v=wwm98VdzD8s)
 - [Brackeys: How to get Good Graphics in Unity](https://www.youtube.com/watch?v=owZneI02YOU)
 - [Brackeys: Photorealistic Materials in Unity](https://youtu.be/_LaVvGlkBDs?list=PLPV2KyIb3jR4GH32npxmkXE-AHnlamcdG)
+- [Brackeys: How to get Volumetric Lighting in Unity 5](https://www.youtube.com/watch?v=H5v_X1k02U0)
+- [Brackeys: How to get Good Graphics - Upgrading to HDRP](https://www.youtube.com/watch?v=12gkcdLc77s)
+- [Brackeys: HIH QUALITY LIGHTING using Light Probes](https://www.youtube.com/watch?v=_E0JXOZDTKA)
+- [Brackeys: REFLECTIONS in Unity](https://www.youtube.com/watch?v=lhELeLnynI8)
+
+- [Lighting in Unity 5](https://dshankar.svbtle.com/lighting-in-unity-5)
 
 ## General Notes
 
