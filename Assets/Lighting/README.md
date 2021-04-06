@@ -8,6 +8,12 @@ Reference
 - [Brackeys: REALTIME LIGHTING in Unity](https://www.youtube.com/watch?v=wwm98VdzD8s)
 - [Brackeys: How to get Good Graphics in Unity](https://www.youtube.com/watch?v=owZneI02YOU)
 - [Brackeys: Photorealistic Materials in Unity](https://youtu.be/_LaVvGlkBDs?list=PLPV2KyIb3jR4GH32npxmkXE-AHnlamcdG)
+- [Brackeys: How to get Volumetric Lighting in Unity 5](https://www.youtube.com/watch?v=H5v_X1k02U0)
+- [Brackeys: How to get Good Graphics - Upgrading to HDRP](https://www.youtube.com/watch?v=12gkcdLc77s)
+- [Brackeys: HIH QUALITY LIGHTING using Light Probes](https://www.youtube.com/watch?v=_E0JXOZDTKA)
+- [Brackeys: REFLECTIONS in Unity](https://www.youtube.com/watch?v=lhELeLnynI8)
+
+- [Lighting in Unity 5](https://dshankar.svbtle.com/lighting-in-unity-5)
 
 ## General Notes
 
@@ -21,6 +27,8 @@ Terms
 - **Baking**: Generates textures to represent light bounces, elimating the need for realtime-calculations. Generally best for static objects.
 - **Progressive lightmapper**: Path-tracing-based lightmapper for baking. Can see results as it renders in editor, and can make realtime changes.
 - **Two-point lighting**: When two sources of lighting are used; typically a `main light`, and a less-intense `rim light`.
+- **Volumetric lighting**: Simulates light being scattered in the atmosphere due to particles, creating a 3D voluminous effect (e.g. dust/mist/smoke in the air)
+- **Light probes**: Where baked lighting works for static objects, light probes allow advanced lighting calculations for dynamic objects.
 
 ![Image](./Documentation/LightingExamples.png)
 
@@ -78,7 +86,7 @@ If we see banding, adjust the lightmap `Compression`.
 
 - **Color Space** - determines the math used in lighting calculations / reading values from textures.
 
-  - **Linear space** - colours supplied to shaders will brighten linearly as light intensity increases.
+  - **Linear space** - colours supplied to shaders will brighten linearly as light intensity increases. Typically provides more realistic results.
   - **Gamma space** - typically results in brighters colours blowing out to white, leading to a washed out look.
 
 ![Image](Documentation/Graphics-ColorSpace.png)
@@ -94,7 +102,8 @@ If we see banding, adjust the lightmap `Compression`.
 
 - **Tone mapping** - determines how HDR colour data maps to the screen's colour range. *(Note that if Filmic is applied it may be necessary to increase ambient lighting intensity etc. to achieve reasonable lighting)*
 
-![Image](Documentation/Graphics-HDR.png)
+|![Image](Documentation/Graphics-HDR.png)|![Image](Documentation/Graphics-HDR-2.png)|
+|-|-|
 
 - **PBR (Physically Based Rendering)** - rendering techniques that mimic real-world lighting behaviours.
 
@@ -122,6 +131,40 @@ If we see banding, adjust the lightmap `Compression`.
     > Note that if a metallic texture map is assigned, we lose access to the smoothness channel as red channel = metalicness and alpha channel = smoothness.
 
 ![Image](Documentation/Graphics-PBR-Surfaces.png)
+
+### Light Probes
+
+Baked lighting only works for static objects. Light probes can be used to apply lighting conditions to dynamic (moving) objects.
+
+- When adding a light probe group, many individual light probes make up the group.
+- Each light probe records information about the lighting at that position, such as intensity, colour bounces, etc.
+- When placing probes, try to strategically prosition them at areas where light/colour changes drastically, so that these nuances between positions are recorded and applied.
+- When a dynamic object moves throughout the group, the lighting information is applied to the object (interpolated between probes).
+
+> Note that each light probe is a white sphere that actively displays the calculated lighting. Thus, each probe in scene can be inspected to see lighting at that point.
+
+> Note that when moving a dynamic object around in scene view, Unity will display the active light probes that are currently influencing it.
+
+![Image](Documentation/Light-Probes-1.png)
+
+### Reflections
+
+#### Reflection Probes
+
+- A reflection probe acts as a 360-degree camera at a point in space. 
+- The captured image (distance determined by the bounding volume) is rendered as a cube map. 
+- The cupe map is then overlaid on nearby objects to create a reflection.
+
+> Notes
+>
+> - Baked reflection will use static objects. Note that when marking objects as static, we can use the dropdown to be more specific, and target reflections only if we wish.
+> - Realtime reflections will render all objects. Use a culling mask to eliminate items that we don't want to reflect.
+>
+> The downside to reflection probes is that it is an approximation of reflection, and isn't very accurate for smaller details/objects.
+
+#### Screen Space Reflections
+
+A post-processing effect that is used to crate more subtle reflections. Objects typically line up with their reflections, which gives them an advantage over probes. 
 
 ---
 
