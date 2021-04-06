@@ -141,6 +141,25 @@ Baked lighting only works for static objects. Light probes can be used to apply 
 
 ![Image](Documentation/Light-Probes-1.png)
 
+### Reflections
+
+#### Reflection Probes
+
+- A reflection probe acts as a 360-degree camera at a point in space. 
+- The captured image (distance determined by the bounding volume) is rendered as a cube map. 
+- The cupe map is then overlaid on nearby objects to create a reflection.
+
+> Notes
+>
+> - Baked reflection will use static objects. Note that when marking objects as static, we can use the dropdown to be more specific, and target reflections only if we wish.
+> - Realtime reflections will render all objects. Use a culling mask to eliminate items that we don't want to reflect.
+>
+> The downside to reflection probes is that it is an approximation of reflection, and isn't very accurate for smaller details/objects.
+
+#### Screen Space Reflections
+
+A post-processing effect that is used to crate more subtle reflections. Objects typically line up with their reflections, which gives them an advantage over probes. 
+
 ---
 
 ## Tips
