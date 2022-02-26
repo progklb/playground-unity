@@ -3,22 +3,19 @@ using UnityEngine;
 namespace SimpleRopes
 {
 	/// <summary>
-	/// Defines a single point in 2D space.
+	/// Defines a single point in 3D space.
 	/// </summary>
-	public class Point
+	public class Point : MonoBehaviour
 	{
 		#region VARIABLES
-		public Vector2 position { get; set; }
-		public bool locked { get; set; }
-		#endregion
-
-
-		#region CONSTRUCTORS
-		public Point(float x, float y, bool locked = false)
-		{
-			this.position = new Vector2(x, y);
-			this.locked = locked;
+		public Vector3 position
+		{ 
+			get => transform.position;
+			set => transform.position = value;
 		}
+
+		public Vector3 prevPosition { get; set; }
+		public bool isLocked { get; set; }
 		#endregion
 	}
 }

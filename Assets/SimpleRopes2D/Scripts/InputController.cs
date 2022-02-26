@@ -7,54 +7,112 @@ namespace SimpleRopes
 	/// </summary>
 	public class InputController : MonoBehaviour
 	{
-		#region PUBLIC API
-		[SerializeField]
-		private Transform m_Container;
-		[SerializeField]
-		private PointRenderer m_PointPrefab;
-		[SerializeField]
-		private LineRenderer m_LinePrefab;
+		#region PROPERTIES
+		private Point selectedPoint { get; set; }
+		#endregion
 
-		[Space]
-		private bool m_ClearOnStart;
+
+		#region VARIABLES
+		[SerializeField]
+		private Color m_UnselectedColor = Color.white;
+		[SerializeField]
+		private Color m_SelectedColor = Color.red;
+		[SerializeField]
+		private Color m_LockedColor = Color.blue;
 		#endregion
 
 
 		#region UNITY EVENTS
-		void Start()
+		void Update()
 		{
-			if (m_ClearOnStart)
+			if (Input.GetMouseButtonDown(0) || Input.GetMouseButtonDown(1))
 			{
-				for (int i = m_Container.childCount - 1; i >= 0; i--)
+				var worldPos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+
+				if (ClickPoint(worldPos, out Point point))
 				{
-					Destroy(m_Container.GetChild(i));
+					if (Input.GetMouseButtonDown(0))
+					{
+						if (selectedPoint == null)
+						{
+							SelectPoint(point, true);
+						}
+						else if (selectedPoint == point)
+						{
+							SelectPoint(selectedPoint, false);
+						}
+						else
+						{
+							CreateLine(selectedPoint, point);
+							SelectPoint(selectedPoint, false);
+						}
+					}
+
+					if (Input.GetMouseButtonDown(1))
+					{
+						LockPoint(point, !point.isLocked);
+					}
+					
+				}
+				else
+				{
+					if (selectedPoint != null)
+					{
+						SelectPoint(selectedPoint, false);
+					}
+					else
+					{
+						SelectPoint(selectedPoint, false);
+						CreatePoint(worldPos - new Vector3(0f, 0f, -10f));
+					}
 				}
 			}
 		}
-		void Update()
+		#endregion
+
+
+		#region HELPER FUNCTIONS
+		bool ClickPoint(Vector3 clickPos, out Point point)
 		{
-			if (Input.GetMouseButtonDown(0))
+			if (Physics.Raycast(clickPos, Vector3.forward, out RaycastHit hit))
 			{
-				var pos = Camera.main.ScreenToViewportPoint(Input.mousePosition);
-				var point = new Point(pos.x, pos.y);
-				var pointRenderer = Instantiate(m_PointPrefab, m_Container);
-				pointRenderer.Set(point);
-
-				// if (not over another object)
-				// {
-				//	Create point
-				// }
-				// else
-				// {
-				//  Create line
-				// }
-
-
+				point = hit.collider.gameObject.GetComponent<Point>();
+				return point != null;
 			}
-			else
+
+			point = null;
+			return false;
+		}
+
+		void SelectPoint(Point point, bool selected)
+		{
+			if (point != null)
 			{
-
+				point.GetComponent<MeshRenderer>().material.color = selected ? m_SelectedColor : m_UnselectedColor;
+				selectedPoint = selected ? point : null;
 			}
+		}
+
+		void LockPoint(Point point, bool locked)
+		{
+			if (point != null)
+			{
+				point.isLocked = locked;
+				point.GetComponent<MeshRenderer>().material.color =
+					locked ? m_LockedColor :
+					selectedPoint == point ? m_SelectedColor :
+					m_UnselectedColor;
+			}
+		}
+
+		void CreatePoint(Vector3 pos)
+		{
+			SimulationController.instance.CreatePoint(pos);
+		}
+
+		void CreateLine(Point a, Point b)
+		{
+			SimulationController.instance.CreateLine(a, b);
 		}
 		#endregion
 	}
