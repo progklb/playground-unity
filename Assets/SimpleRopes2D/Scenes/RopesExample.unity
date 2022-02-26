@@ -367,6 +367,8 @@ MonoBehaviour:
   m_Container: {fileID: 1992298014}
   m_PointPrefab: {fileID: -6217447274023884372, guid: 7bc843fbe7cbdcc408304a39e4584a44,
     type: 3}
+  m_LinePrefab: {fileID: 898577986931608048, guid: f6984f2f6a56df44a993ea53f4dd1247,
+    type: 3}
   m_UpdateMode: 0
   m_Gravity: {x: 0, y: -9.8, z: 0}
   m_ClearOnStart: 1

@@ -52,7 +52,6 @@ namespace SimpleRopes
 					{
 						LockPoint(point, !point.isLocked);
 					}
-					
 				}
 				else
 				{

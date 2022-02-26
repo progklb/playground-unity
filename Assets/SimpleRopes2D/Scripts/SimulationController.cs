@@ -40,6 +40,8 @@ namespace SimpleRopes
 		[SerializeField]
 		private Vector3 m_Gravity = new Vector3(0f, -9.8f, 0f);
 		[SerializeField]
+		private int m_NumberOfIterations = 10;
+		[SerializeField]
 		private bool m_ClearOnStart;
 		#endregion
 
@@ -83,23 +85,35 @@ namespace SimpleRopes
 
 		public Point CreatePoint(Vector3 pos)
 		{
-			Debug.Log($"Creating point: {pos}");
-
 			var point = Instantiate(m_PointPrefab, m_Container, worldPositionStays: false) as Point;
 			point.position = pos;
 			point.prevPosition = pos;
+
 			points.Add(point);
+
+			Debug.Log($"Created point: {point}");
 
 			return point;
 		}
 
 		public Line CreateLine(Point a, Point b)
 		{
-			throw new System.NotImplementedException();
+			var line = Instantiate(m_LinePrefab, m_Container, worldPositionStays: false) as Line;
+			
+			line.pointA = a;
+			line.pointB = b;
+			line.length = Vector3.Distance(a.position, b.position);
+
+			lines.Add(line);
+
+			Debug.Log($"Created line: {line}");
+
+			return line;
 		}
 
 		public void Simulate(float deltaTime)
 		{
+			// Apply gravity to all unlocked points.
 			foreach (var p in points)
 			{
 				if (!p.isLocked)
@@ -110,6 +124,23 @@ namespace SimpleRopes
 					p.position += m_Gravity * deltaTime * deltaTime;
 
 					p.prevPosition = posBeforeUpdate;
+				}
+			}
+
+			// Tether points to each other with the lines.
+			for (int i = 0; i < m_NumberOfIterations; i++)
+			{
+				foreach (var l in lines)
+				{
+					if (!l.pointA.isLocked)
+					{
+						l.pointA.position = l.center + l.direction * l.length / 2;
+					}
+
+					if (!l.pointB.isLocked)
+					{
+						l.pointB.position = l.center - l.direction * l.length / 2;
+					}
 				}
 			}
 		}

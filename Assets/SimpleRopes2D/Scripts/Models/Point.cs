@@ -9,13 +9,21 @@ namespace SimpleRopes
 	{
 		#region VARIABLES
 		public Vector3 position
-		{ 
+		{
 			get => transform.position;
 			set => transform.position = value;
 		}
 
 		public Vector3 prevPosition { get; set; }
 		public bool isLocked { get; set; }
+		#endregion
+
+
+		#region PUBLIC API
+		public override string ToString()
+		{
+			return $"{name}, {position}, {nameof(isLocked)}={isLocked}";
+		}
 		#endregion
 	}
 }
