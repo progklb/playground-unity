@@ -8,19 +8,28 @@ namespace SimpleRopes
 	public class Line : MonoBehaviour
 	{
 		#region PROPERTIES
-		public Point pointA { get; set; }
-		public Point pointB { get; set; }
-
-		public float length { get; set; }
+		public Point pointA { get => m_PointA; set => m_PointA = value; }
+		public Point pointB { get => m_PointB; set => m_PointB = value; }
 
 		public Vector3 center { get => (pointA.position + pointB.position) / 2; }
 		public Vector3 direction { get => (pointA.position - pointB.position).normalized; }
+
+		public float length { get => m_Length; set => m_Length = value; }
 		#endregion
 
 
 		#region VARIABLES
 		[SerializeField]
-		LineRenderer m_LineRenderer;
+		private LineRenderer m_LineRenderer;
+
+		[Space]
+
+		[SerializeField]
+		private Point m_PointA;
+		[SerializeField]
+		private Point m_PointB;
+		[SerializeField]
+		private float m_Length;
 		#endregion
 
 

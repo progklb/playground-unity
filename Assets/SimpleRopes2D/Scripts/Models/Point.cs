@@ -7,15 +7,21 @@ namespace SimpleRopes
 	/// </summary>
 	public class Point : MonoBehaviour
 	{
-		#region VARIABLES
+		#region PROPERTIES
 		public Vector3 position
 		{
 			get => transform.position;
 			set => transform.position = value;
 		}
 
-		public Vector3 prevPosition { get; set; }
-		public bool isLocked { get; set; }
+		public Vector3? prevPosition { get; set; }
+		public bool isLocked { get => m_IsLocked; set => m_IsLocked = value; }
+		#endregion
+
+
+		#region VARIABLES
+		[SerializeField]
+		private bool m_IsLocked;
 		#endregion
 
 

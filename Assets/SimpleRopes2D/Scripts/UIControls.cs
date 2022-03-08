@@ -30,7 +30,7 @@ namespace SimpleRopes
 			m_StopButton.onClick.AddListener(StopSimulating);
 			m_ClearButton.onClick.AddListener(Clear);
 
-
+			Refresh();
 		}
 		#endregion
 
@@ -39,16 +39,19 @@ namespace SimpleRopes
 		public void StartSimulating()
 		{
 			simulationController.SetUpdateMode(SimulationController.UpdateMode.Update);
+			Refresh();
 		}
 
 		public void StopSimulating()
 		{
 			simulationController.SetUpdateMode(SimulationController.UpdateMode.None);
+			Refresh();
 		}
 
 		public void Clear()
 		{
 			simulationController.Clear();
+			Refresh();
 		}
 
 		public void Load(string prefabPath)

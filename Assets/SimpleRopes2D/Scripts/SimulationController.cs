@@ -95,7 +95,6 @@ namespace SimpleRopes
 		{
 			var point = Instantiate(m_PointPrefab, m_Container, worldPositionStays: false) as Point;
 			point.position = pos;
-			point.prevPosition = pos;
 
 			points.Add(point);
 
@@ -128,7 +127,12 @@ namespace SimpleRopes
 				{
 					var posBeforeUpdate = p.position;
 
-					p.position += p.position - p.prevPosition;
+					if (!p.prevPosition.HasValue)
+					{
+						p.prevPosition = p.position;
+					}
+
+					p.position += p.position - p.prevPosition.Value;
 					p.position += m_Gravity * deltaTime * deltaTime;
 
 					p.prevPosition = posBeforeUpdate;
