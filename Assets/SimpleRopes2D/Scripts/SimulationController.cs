@@ -19,6 +19,9 @@ namespace SimpleRopes
 
 
 		#region PROPERTIES
+		public bool isSimulating { get => m_UpdateMode != UpdateMode.None; }
+		public UpdateMode updateMode { get => m_UpdateMode; }
+
 		public List<Point> points { get; private set; } = new List<Point>();
 		public List<Line> lines { get; private set; } = new List<Line>();
 		#endregion
@@ -77,10 +80,15 @@ namespace SimpleRopes
 		public void Clear()
 		{
 			points.ForEach(x => Destroy(x.gameObject));
-			//lines.ForEach(x => Destroy(x.gameObject));
+			lines.ForEach(x => Destroy(x.gameObject));
 
 			points.Clear();
 			lines.Clear();
+		}
+
+		public void SetUpdateMode(UpdateMode mode)
+		{
+			m_UpdateMode = mode;
 		}
 
 		public Point CreatePoint(Vector3 pos)
@@ -142,6 +150,40 @@ namespace SimpleRopes
 						l.pointB.position = l.center - l.direction * l.length / 2;
 					}
 				}
+			}
+
+			// TODO Randomize iterations to prevent weird behaviour.
+		}
+
+		public void Load(GameObject parent, bool instantiate = true)
+		{
+			if (parent == null)
+			{
+				Debug.LogError("Provided game object to load was null.");
+				return;
+			}
+
+			if (instantiate)
+			{
+				parent = Instantiate(parent, m_Container, worldPositionStays: true);
+			}
+
+			void Add<T>(Transform child, List<T> list)
+			{
+				var target = child.GetComponent<T>();
+				if (target != null)
+				{
+					list.Add(target);
+				}
+			}
+
+			Transform child;
+			for (int i = 0; i < parent.transform.childCount; i++)
+			{
+				child = parent.transform.GetChild(i);
+
+				Add(child, points);
+				Add(child, lines);
 			}
 		}
 		#endregion

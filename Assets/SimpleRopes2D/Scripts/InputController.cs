@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.EventSystems;
 
 namespace SimpleRopes
 {
@@ -25,7 +26,14 @@ namespace SimpleRopes
 		#region UNITY EVENTS
 		void Update()
 		{
-			if (Input.GetMouseButtonDown(0) || Input.GetMouseButtonDown(1))
+			// TODO
+			// - Click and drag to move points.
+			// - Swipe across lines to delete them.
+			// - Delete points
+			// - Generate array of points/lines for cloth sims.
+
+			if ((Input.GetMouseButtonDown(0) || Input.GetMouseButtonDown(1)) &&
+				!EventSystem.current.IsPointerOverGameObject())
 			{
 				var worldPos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
 
