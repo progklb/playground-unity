@@ -1758,9 +1758,11 @@ MonoBehaviour:
     Right-click point:         Lock/unlock
     point
 
+    Del:                             Deletes selected point
 
-    And to draw a line between two points, select one point and then
-    select another.'
+
+    And
+    to draw a line between two points, select one point and then select another.'
 --- !u!222 &1785501531
 CanvasRenderer:
   m_ObjectHideFlags: 0

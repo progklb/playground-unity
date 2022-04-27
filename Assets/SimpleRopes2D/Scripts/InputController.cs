@@ -29,7 +29,6 @@ namespace SimpleRopes
 			// TODO
 			// - Click and drag to move points.
 			// - Swipe across lines to delete them.
-			// - Delete points
 			// - Generate array of points/lines for cloth sims.
 
 			if ((Input.GetMouseButtonDown(0) || Input.GetMouseButtonDown(1)) &&
@@ -37,7 +36,7 @@ namespace SimpleRopes
 			{
 				var worldPos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
 
-				if (ClickPoint(worldPos, out Point point))
+				if (ClickedPoint(worldPos, out Point point))
 				{
 					if (Input.GetMouseButtonDown(0))
 					{
@@ -74,12 +73,19 @@ namespace SimpleRopes
 					}
 				}
 			}
+
+			if (Input.GetKeyDown(KeyCode.Delete) && selectedPoint != null)
+			{
+				var point = selectedPoint;
+				SelectPoint(selectedPoint, false);
+				DeletePoint(point);
+			}
 		}
 		#endregion
 
 
 		#region HELPER FUNCTIONS
-		bool ClickPoint(Vector3 clickPos, out Point point)
+		bool ClickedPoint(Vector3 clickPos, out Point point)
 		{
 			if (Physics.Raycast(clickPos, Vector3.forward, out RaycastHit hit))
 			{
@@ -120,6 +126,11 @@ namespace SimpleRopes
 		void CreateLine(Point a, Point b)
 		{
 			SimulationController.instance.CreateLine(a, b);
+		}
+
+		void DeletePoint(Point point)
+		{
+			SimulationController.instance.DeletePoint(point);
 		}
 		#endregion
 	}

@@ -118,6 +118,27 @@ namespace SimpleRopes
 			return line;
 		}
 
+		public void DeletePoint(Point point)
+		{
+			// Delete lines associated with point.
+
+			var linesToDelete = new List<Line>();
+
+			lines.ForEach(x => {
+				if (x.pointA == point || x.pointB == point)
+				{
+					linesToDelete.Add(x);
+					Destroy(x.gameObject);
+				}
+			});
+
+			linesToDelete.ForEach(x => lines.Remove(x));
+
+			// Delete point.
+			Destroy(point.gameObject);
+			points.Remove(point);
+		}
+
 		public void Simulate(float deltaTime)
 		{
 			// Apply gravity to all unlocked points.
