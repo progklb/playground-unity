@@ -127,6 +127,8 @@ namespace SimpleRopes
 			lines.ForEach(x => {
 				if (x.pointA == point || x.pointB == point)
 				{
+					Debug.Log($"Deleting line: {x}");
+
 					linesToDelete.Add(x);
 					Destroy(x.gameObject);
 				}
@@ -135,6 +137,7 @@ namespace SimpleRopes
 			linesToDelete.ForEach(x => lines.Remove(x));
 
 			// Delete point.
+			Debug.Log($"Deleting point: {point}");
 			Destroy(point.gameObject);
 			points.Remove(point);
 		}
