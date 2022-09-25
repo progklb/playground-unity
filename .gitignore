@@ -4,6 +4,7 @@
 [Bb]uild/
 [Bb]uilds/
 [Ll]ogs/
+[Uu]serSettings/
 Assets/AssetStoreTools*
 
 # Visual Studio cache directory
@@ -29,6 +30,9 @@ ExportedObj/
 *.pidb.meta
 *.pdb.meta
 
+# Unity logs files
+*.log
+
 # Unity3D Generated File On Crash Reports
 sysinfo.txt
 
@@ -45,3 +49,6 @@ Assets/_Project/Scenes/Test.meta
 Assets/_Project/Scenes/Levels/*/
 # test envionment assets
 Assets/_Project/Resources/Environment Assets/Test/*
+
+# macOS
+*.DS_Store
