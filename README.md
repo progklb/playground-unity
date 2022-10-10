@@ -33,5 +33,6 @@ A branching strategy is used for each sub-project. Branches should never be dele
 
 - **Common**: Contains common assets for use within other sub-projects.
 - **Lighting**: Demonstrates various lighting techniques. See [documentation](./Assets/Lighting/README.md)
+- **ProceduralGeneration**: Procedural generation experiments.
 - **SimpleRopes2D**: An implementation of naive 2D rope physics.
 - **URP Template**: The URP template was generated when creating this project. This has been included as an example of scene lighting, as well as reusable assets.
